@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Заявки курьеров</title>
+</head>
+<body>
+    <h2>Заявки курьеров</h2>
+    <table border="1">
+        <tr>
+            <th>ФИО</th>
+            <th>Контактный номер</th>
+            <th>Город</th>
+            <th>Тип транспорта</th>
+            <th>Статус</th>
+            <th>Действия</th>
+        </tr>
+        {% for app in applications %}
+        <tr>
+            <td>{{ app['full_name'] }}</td>
+            <td>{{ app['contact_number'] }}</td>
+            <td>{{ app['city'] }}</td>
+            <td>{{ app['transport_type'] }}</td>
+            <td>{{ app['status'] }}</td>
+            <td>
+                <form method="POST">
+                    <input type="hidden" name="application_id" value="{{ app['id'] }}">
+                    <button name="action" value="accept">Принять</button>
+                    <button name="action" value="reject">Отклонить</button><br>
+                    <textarea name="reason" placeholder="Причина отказа"></textarea>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{{ url_for('logout') }}">Выйти</a>
+</body>
+</html>
